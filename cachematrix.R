@@ -4,15 +4,15 @@
 ## setinv calculates inverse of matrix if not yet existing, and getinv establishes new value
 ## for matrix in first function for next loop run
 
-makeCacheMatrix <- function(x = numeric()) {
-        m <- NULL
+makeCacheMatrix <- function(x = matrix()) {
+        inv_m <- NULL
         set <- function(y) {
                 x <<- y
-                m <<- NULL     ## sets value of matrix to NULL
+                inv_m <<- NULL     ## sets value of inverse matrix to NULL
         }
-        get <- function() x    ## 
-        setinv <- function(solve) m <<- solve
-        getinv <- function() m
+        get <- function() x    ## gets value of matrix x
+        setinv <- function(solve) inv_m <<- solve    ## 
+        getinv <- function() inv_m
         list(set = set, get = get,
              setinv = setinv,
              getinv = getinv)   ## list containing four arguments subsequently used by cacheSolve function
@@ -27,13 +27,13 @@ makeCacheMatrix <- function(x = numeric()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
 
-        m <- x$getinv()
-        if(!is.null(m)) {
-                message("getting cached data")
-        return(m)
+        inv_m <- x$getinv()             ## setting object inv_m to value stored in cache function
+        if(!is.null(inv_m)) {
+                message("getting cached data")  ## prints message "getting cached data"
+        return(inv_m)                   ## returns value of inv_m
         }
-        data <- x$get()
-        m <- solve(data, ...)
-        x$setinv(m)
-        m
+        data <- x$get()                 ## if getinv not NULL, value of matrix x called into object "data"
+        inv_m <- solve(data, ...)       ## inverse of matrix x calculated and assigned to inv_m
+        x$setinv(inv_m)                 ## new value of inv_m assigned to argument "setinv" of function makeCacheMatrix
+        inv_m                           ## 
 }
