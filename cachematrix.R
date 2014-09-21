@@ -3,7 +3,7 @@
 ## set initializes m, get allows to retrieve x if already existing in cache (i.e. not NULL)
 ## setinv calculates inverse of matrix if not yet existing, and getinv establishes new value
 ## for matrix in first function for next loop run
-x <- matrix(1:4, 2)
+
 makeCacheMatrix <- function(x = matrix()) {
         inv_m <- NULL                                ## sets inv_m to NULL
         set <- function(y) {                         
