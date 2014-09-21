@@ -3,19 +3,19 @@
 ## set initializes m, get allows to retrieve x if already existing in cache (i.e. not NULL)
 ## setinv calculates inverse of matrix if not yet existing, and getinv establishes new value
 ## for matrix in first function for next loop run
-
+x <- matrix(1:4, 2)
 makeCacheMatrix <- function(x = matrix()) {
-        inv_m <- NULL
-        set <- function(y) {
-                x <<- y
-                inv_m <<- NULL     ## sets value of inverse matrix to NULL
+        inv_m <- NULL                                ## sets inv_m to NULL
+        set <- function(y) {                         
+                x <<- y                              ## sets x to y
+                inv_m <<- NULL                       ## sets value of inverse matrix to NULL
         }
-        get <- function() x    ## gets value of matrix x
-        setinv <- function(solve) inv_m <<- solve    ## 
-        getinv <- function() inv_m
+        get <- function() x                          ## gets value of matrix x
+        setinv <- function(solve) inv_m <<- solve    ## sets inv_m to solve
+        getinv <- function() inv_m                   ## returns the value of inv_m
         list(set = set, get = get,
              setinv = setinv,
-             getinv = getinv)   ## list containing four arguments subsequently used by cacheSolve function
+             getinv = getinv)                        ## list containing four arguments subsequently used by cacheSolve function
 }
 
 
@@ -37,3 +37,4 @@ cacheSolve <- function(x, ...) {
         x$setinv(inv_m)                 ## new value of inv_m assigned to argument "setinv" of function makeCacheMatrix
         inv_m                           ## 
 }
+
